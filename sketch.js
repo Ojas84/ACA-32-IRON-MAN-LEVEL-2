@@ -21,7 +21,7 @@ function setup() {
   ground=createSprite(200,585,900,10)
 ground.visible=false
   
-  
+  brickGroup=new Group()
  
 }
 
@@ -38,17 +38,25 @@ function draw() {
   iron.velocityY=-12
   iron.velocityY  +=0.5
   iron.collide(ground)
+  generateBricks();
+    for (var i=0; i<brickGroup.length ;i++){
+        var temp=(brickGroup).get(i) ;
+        if (temp.isTouching(iron)){
+            iron.collide(temp);
+        }
+    }
     
     drawSprites();
+
    
 }
 function generateBricks(){
   if (frameCount%70 === 0) {
       var brick = createSprite(1200,120,40,10);
-      brick.X=random(50,450);
+      brick.x=random(50,450);
       brick.addImage(brickImage);
       brick.scale=0.5;
-      brick.velocityY=-5;
+      brick.velocityY=5;
 
       brick.lifetime=250;
       brickGroup.add(brick);
